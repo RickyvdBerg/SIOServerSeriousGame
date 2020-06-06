@@ -117,7 +117,8 @@ io.sockets.on('connection', (socket) => {
     if(IsCompleted(gameid, leaderboard[data.roomid].games, roomid)) {
       console.log("a game has been completed: ", gameid);
       
-      completedGames[roomid] = completedGames[roomid] ? [...completedGames[roomid], {gameid}] : [gameid]
+      completedGames[roomid] = completedGames[roomid] ? completedGames[roomid].concat([gameid]) : [gameid]
+      console.log("a game has been completed: ", completedGames[roomid]);
       io.in(roomid).emit("gamecompleted", {games: completedGames[roomid]})
     }
   });
